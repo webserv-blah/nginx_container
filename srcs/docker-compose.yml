@@ -1,0 +1,25 @@
+services:
+  practice_nginx:
+    container_name: practice_nginx
+    image: practice_nginx:1.0
+    restart: on-failure
+    build:
+      context: ./requirements/nginx
+    env_file:
+      - ./.env
+    volumes:
+      - resources:/usr/share/nginx/html
+    ports:
+      - "8090:80"
+
+volumes:
+  resources:
+    name: resources
+    #driver_opts:
+    #  type: none
+    #  device: $(HOME_BIND)/resources
+    #  o: bind
+
+#networks:
+#  docker-network:
+#    driver: bridge
