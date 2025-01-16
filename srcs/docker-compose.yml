@@ -5,8 +5,6 @@ services:
     restart: on-failure
     build:
       context: ./requirements/nginx
-    env_file:
-      - ./.env
     volumes:
       - resources:/usr/share/nginx/html
     ports:
@@ -15,11 +13,3 @@ services:
 volumes:
   resources:
     name: resources
-    #driver_opts:
-    #  type: none
-    #  device: $(HOME_BIND)/resources
-    #  o: bind
-
-#networks:
-#  docker-network:
-#    driver: bridge

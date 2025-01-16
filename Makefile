@@ -6,18 +6,7 @@ SERVICES      = practice_nginx
 VOLUMES       = resources
 
 # ------------------------------------------------------------------------------
-# 각 개인의 /$HOME/resources 디렉토리에 마운트됩니다.
-MOUNT_DIR     = $(HOME)/$(VOLUMES)
-CONFIG        = ./srcs/.config
-
-# ------------------------------------------------------------------------------
-$(DATA_DIR) $(MOUNT_DIR):
-	sudo mkdir -p $@
-
-$(CONFIG):
-	@echo "HOST_MOUNT=$(MOUNT_DIR)" > $@
-
-all: $(DATA_DIR) $(MOUNT_DIR) $(CONFIG)
+all:
 	docker-compose -f ./srcs/docker-compose.yml up -d --build
 
 clean:
@@ -25,13 +14,12 @@ clean:
 
 fclean:
 	make clean
-	sudo rm -rf $(MOUNT_DIR)
 	docker volume rm $(VOLUMES)
 	docker image prune -f -a
 	docker volume prune -f -a
 	docker network prune -f
 
-re: $(DATA_DIR) $(MOUNT_DIR) $(CONFIG)
+re:
 	make fclean
 	make all
 
